@@ -25,7 +25,11 @@ class StepView: UIView {
             layoutSubviews()
         }
     }*/
-    var arraySteps = [step(type: stepType.run, value: 13), step(type: stepType.aerobic, value: 22), step(type: stepType.walk, value: 45)]
+    var arraySteps = [step(type: stepType.run, value: 13), step(type: stepType.aerobic, value: 22), step(type: stepType.walk, value: 45)] {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     enum stepType: String {
         case run

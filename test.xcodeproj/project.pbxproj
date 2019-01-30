@@ -16,6 +16,7 @@
 		4D00CAB821FF5A74004BA23D /* StepsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D00CAB721FF5A73004BA23D /* StepsTableViewController.swift */; };
 		4D00CABA21FF5B84004BA23D /* StepTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D00CAB921FF5B84004BA23D /* StepTableViewCell.swift */; };
 		4D00CABC21FF69C6004BA23D /* step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D00CABB21FF69C6004BA23D /* step.swift */; };
+		4D00CABE2200CA30004BA23D /* GoalReachedStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D00CABD2200CA30004BA23D /* GoalReachedStar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		4D00CAB721FF5A73004BA23D /* StepsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsTableViewController.swift; sourceTree = "<group>"; };
 		4D00CAB921FF5B84004BA23D /* StepTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTableViewCell.swift; sourceTree = "<group>"; };
 		4D00CABB21FF69C6004BA23D /* step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = step.swift; sourceTree = "<group>"; };
+		4D00CABD2200CA30004BA23D /* GoalReachedStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalReachedStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				4D00CAB521FF3283004BA23D /* StepView.swift */,
 				4D00CAA621FF3114004BA23D /* Main.storyboard */,
 				4D00CAB721FF5A73004BA23D /* StepsTableViewController.swift */,
+				4D00CABD2200CA30004BA23D /* GoalReachedStar.swift */,
 				4D00CABB21FF69C6004BA23D /* step.swift */,
 				4D00CAB921FF5B84004BA23D /* StepTableViewCell.swift */,
 				4D00CAB421FF312F004BA23D /* SupportingFiles */,
@@ -159,6 +162,7 @@
 				4D00CAA321FF3114004BA23D /* AppDelegate.swift in Sources */,
 				4D00CAB621FF3283004BA23D /* StepView.swift in Sources */,
 				4D00CABA21FF5B84004BA23D /* StepTableViewCell.swift in Sources */,
+				4D00CABE2200CA30004BA23D /* GoalReachedStar.swift in Sources */,
 				4D00CAB821FF5A74004BA23D /* StepsTableViewController.swift in Sources */,
 				4D00CABC21FF69C6004BA23D /* step.swift in Sources */,
 			);

@@ -10,18 +10,15 @@ import UIKit
 
 class StepsTableViewController: UITableViewController {
 
-    var steps:[step]?
-    var goal = 2000
+    var steps:[step]? 
+    var goal = 4000
+    var cellSpacingHeight = 15
+    var sumOfSteps = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        let urlString = "https://intern-f6251.firebaseio.com/intern/metric.json"
+    /*    let urlString = "https://intern-f6251.firebaseio.com/intern/metric.json"
         
         let url = URL(string: urlString)
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
@@ -37,7 +34,6 @@ class StepsTableViewController: UITableViewController {
                 
                 //Get back to the main queue
                  DispatchQueue.main.async {
-                //print(articlesData)
                   self.steps = articlesData
             self.tableView.reloadData()
                  }
@@ -45,17 +41,15 @@ class StepsTableViewController: UITableViewController {
             } catch let jsonError {
                 print(jsonError)
             }
-            //  return  stepLoaded
             
             }.resume()
         
-    
+ */
        
        
     }
-    
-    func loadData(handler: @escaping ([step]?) -> Void){
-        var stepLoaded : [step]?
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let urlString = "https://intern-f6251.firebaseio.com/intern/metric.json"
         
         let url = URL(string: urlString)
@@ -71,60 +65,108 @@ class StepsTableViewController: UITableViewController {
                 let articlesData = try JSONDecoder().decode([step].self, from: data)
                 
                 //Get back to the main queue
-               // DispatchQueue.main.async {
-                    //print(articlesData)
-                 //   self.steps = articlesData
-                    stepLoaded = articlesData
-                     handler(stepLoaded)
-               // }
+                DispatchQueue.main.async {
+                    self.steps = articlesData
+                    self.tableView.reloadData()
+                }
                 print(articlesData)
             } catch let jsonError {
                 print(jsonError)
             }
-           //  return  stepLoaded
             
             }.resume()
-        
     }
     
     
-
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return steps?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return steps?.count ?? 0
+        return 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepTableCell", for: indexPath) as? StepTableViewCell
 
-        cell?.dateLabel.text = String(Double(steps![indexPath.row].date))
-    //   cell?.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.row].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.row].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.row].run))]
-        let woView = StepView(frame: CGRect(x: 15, y: 50, width: 375, height: 10))
-        woView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.row].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.row].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.row].run))]
-        cell?.countStepLabel.text = String(Double(woView.sumSteps))
-        cell?.aerobicCountLabel.text = String(steps![indexPath.row].aerobic)
-        cell?.walkCountLabel.text = String(steps![indexPath.row].walk)
-        cell?.runCountLabel.text = String(steps![indexPath.row].run)
-    /*    for subview in cell!.subviews{
-            subview.removeFromSuperview();
-        }*/
+        cell?.dateLabel.text = String(Double(steps![indexPath.section].date))
         
+        cell?.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.section].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.section].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.section].run))]
+        cell?.countStepLabel.text = "\(String(steps![indexPath.section].sumOfSteps))/\(goal)steps"
+        cell?.aerobicCountLabel.text = String(steps![indexPath.section].aerobic)
+        cell?.walkCountLabel.text = String(steps![indexPath.section].walk)
+        cell?.runCountLabel.text = String(steps![indexPath.section].run)
         // then add your view
-        cell!.addSubview(woView)
-        
+        cell!.addSubview((cell?.stepLineView)!)
+        animatedLine(for: (cell?.stepLineView)!)
         return cell!
     }
  
-    
+   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return steps![section].sumOfSteps > goal ? CGFloat(cellSpacingHeight) : 0
+    }
 
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if steps![section].sumOfSteps > goal {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width:375 , height: cellSpacingHeight))
+        let footerViewLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width:360 , height: 20))
+        footerViewLabel.text = "Goal reached"
+        footerViewLabel.numberOfLines = 0;
+        footerViewLabel.sizeToFit()
+        let starView = GoalReachedStar(frame: CGRect(x: 350, y: 5, width: 20, height: 20))
+        footerView.addSubview(footerViewLabel)
+        footerView.addSubview(starView)
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 2, delay: 2, options: [ .curveLinear], animations: {starView.frame =  starView.frame.insetBy(dx: -4.0, dy: -4.0)}, completion: { position in
+                UIView.transition(with: starView, duration: 2, options: .curveLinear, animations: {starView.frame =  starView.frame.insetBy(dx: 4.0, dy: 4.0)}
+                )
+            } )
+            
+            
+            return footerView
+            
+        }
+        return nil
+    }
+  /*  override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let stepLineView = cell.contentView.viewWithTag(indexPath.section) as? StepView {
+            stepLineView.alpha = 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let stepLineView = cell.contentView.viewWithTag(indexPath.section) as? StepView {
+            animatedLine(for: stepLineView)
+        }
+    }
+    */
+  /*  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+      /*  cell.alpha = 0
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.05 * Double(indexPath.section),
+            animations: {
+                cell.alpha = 1
+        })*/
+        
+        if let stepLineView = cell.viewWithTag(indexPath.section) as? StepView {
+        animatedLine(for: stepLineView)
+        }
+    }*/
+    
+ 
+  
+    func animatedLine(for lineView: UIView){
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 5, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState, .overrideInheritedCurve], animations: { lineView.frame = CGRect(x: 15, y: 50, width: 355, height: 10)} )
+        
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
