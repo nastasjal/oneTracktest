@@ -20,7 +20,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="170" reuseIdentifier="stepTableCell" rowHeight="120" id="xQo-SA-lgp" customClass="StepTableViewCell" customModule="test" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="stepTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="170" reuseIdentifier="stepTableCell" rowHeight="120" id="xQo-SA-lgp" customClass="StepTableViewCell" customModule="test" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xQo-SA-lgp" id="P8a-DN-jSD">
@@ -38,7 +38,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoA-aF-LWA">
-                                            <rect key="frame" x="171.5" y="79" width="42" height="20"/>
+                                            <rect key="frame" x="163" y="79" width="42" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNb-3D-bIQ">
-                                            <rect key="frame" x="299.5" y="79" width="58.5" height="20"/>
+                                            <rect key="frame" x="291" y="79" width="50" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="YLG-e9-8cw"/>
                                             </constraints>
@@ -94,6 +94,35 @@
                                     <outlet property="dateLabel" destination="DiQ-tb-HZn" id="NA8-6G-d2j"/>
                                     <outlet property="runCountLabel" destination="oNb-3D-bIQ" id="bO6-xt-d3a"/>
                                     <outlet property="walkCountLabel" destination="VoA-aF-LWA" id="Xlc-W8-vMx"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="170" reuseIdentifier="footerTableCell" rowHeight="40" id="ohD-Is-1CN" customClass="FooterTableViewCell" customModule="test" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="148" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ohD-Is-1CN" id="IiD-eq-b09">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JZ-m6-lPT">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="40.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="200" id="POL-Pb-kI9"/>
+                                                <constraint firstAttribute="height" constant="40" id="ZVf-1s-Jkk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.8708618722" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="9JZ-m6-lPT" firstAttribute="leading" secondItem="IiD-eq-b09" secondAttribute="leading" id="HIu-hH-hxx"/>
+                                        <constraint firstItem="9JZ-m6-lPT" firstAttribute="top" secondItem="IiD-eq-b09" secondAttribute="top" id="Nd0-C5-via"/>
+                                        <constraint firstAttribute="bottom" secondItem="9JZ-m6-lPT" secondAttribute="bottom" id="xWv-9e-RVH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="goalReachLabel" destination="9JZ-m6-lPT" id="5vi-0W-pIx"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

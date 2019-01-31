@@ -19,12 +19,7 @@ class StepView: UIView {
             self.type = type
         }
     }
-    //MARK: to do comment values
-   /* var arraySteps = [step] () {
-        didSet {
-            layoutSubviews()
-        }
-    }*/
+
     var arraySteps = [step(type: stepType.run, value: 13), step(type: stepType.aerobic, value: 22), step(type: stepType.walk, value: 45)] {
         didSet {
             layoutSubviews()
@@ -66,12 +61,8 @@ class StepView: UIView {
         addSubview(label)
         return label
     }
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
+
      override func draw(_ rect: CGRect) {
-     let stepRect = UIBezierPath(roundedRect: rect, cornerRadius: 5)
-        UIColor.white.setFill()
-        stepRect.fill()
         var previusX: CGFloat = 0
         arraySteps.forEach{ (step) in
             let width = maxLength * getPercent(for: step)/100
@@ -88,6 +79,14 @@ class StepView: UIView {
         }
      }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
  
     
 }

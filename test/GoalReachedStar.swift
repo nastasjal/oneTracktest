@@ -14,10 +14,7 @@ class GoalReachedStar: UIView {
     var minLength: CGFloat {
         return min(bounds.width, bounds.height)
     }
-    let shapeLayer = CAShapeLayer()
-    
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
+
     override func draw(_ rect: CGRect) {
         let rectStar = CGRect(x: 0, y: 0, width: minLength, height: minLength)
         let pathStar = starPathInRect(rect: rectStar)
@@ -64,6 +61,15 @@ class GoalReachedStar: UIView {
     
     func pointFrom(angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {
         return CGPoint(x: radius * cos(angle) + offset.x, y: radius * sin(angle) + offset.y)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }
