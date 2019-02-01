@@ -14,7 +14,7 @@ class StepTableViewCell: UITableViewCell {
     var indentY: Int = 10
     var objectHeight: Int = 20
     
-    lazy var stepLineView = StepView(frame: CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY))
+    lazy var stepLineView = StepView()// (frame: CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY))
     
     override func awakeFromNib() {
         super.awakeFromNib()

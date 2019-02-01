@@ -24,18 +24,19 @@ class StepsTableViewController: UITableViewController {
     var indentY: Int = 10
     var objectHeight: Int = 20
     var cellHeight: CGFloat = 100
-    var cellWidth: CGFloat = 375
+    var cellWidth: CGFloat = 370
     var footerHeight: CGFloat = 40
     var headerHeight: CGFloat = 20
+    var starSize: Int = 20
     
     @IBAction func changeGoal(_ sender: UIBarButtonItem) {
-        var alert = UIAlertController (title: "change goal", message: "insert new goal", preferredStyle: .alert)
+        let alert = UIAlertController (title: "change goal", message: "insert new goal", preferredStyle: .alert)
         alert.addTextField(configurationHandler: {textfield in
             textfield.placeholder = "goal"
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction ) -> Void in
-        if let newGoal = alert.textFields?.first , let num = Int(newGoal.text!) {
+            if let newGoal = alert.textFields?.first , let _ = Int(newGoal.text!) {
         GoalStore.add(newGoal.text!)
             self.goal = Int(newGoal.text!)!
             }}))
@@ -101,13 +102,13 @@ class StepsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepTableCell", for: indexPath)
             if let stepCell = cell as? StepTableViewCell {
                 stepCell.dateLabel.text = String(Double(steps![indexPath.section].date))
+                stepCell.stepLineView.frame =  CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY)
                 stepCell.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.section].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.section].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.section].run))]
                 stepCell.countStepLabel.text = "\(String(steps![indexPath.section].sumOfSteps))/\(goal)steps"
                 stepCell.aerobicCountLabel.text = String(steps![indexPath.section].aerobic)
                 stepCell.walkCountLabel.text = String(steps![indexPath.section].walk)
                 stepCell.runCountLabel.text = String(steps![indexPath.section].run)
                 cell.addSubview(stepCell.stepLineView)
-                addConstraint(for: cell.contentView)
                 animatedLine(for: (stepCell.stepLineView))
             }
          return cell
@@ -115,7 +116,7 @@ class StepsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "footerTableCell", for: indexPath)
                 if let footerCell = cell  as? FooterTableViewCell {
                 footerCell.goalReachLabel.text = "Goal Reached"
-                footerCell.goalReachStarView.frame = CGRect(x: Int(cellWidth) - indentX  , y: indentY, width: Int(footerHeight) - indentX*2, height: Int(footerHeight) - indentX*2)
+                footerCell.goalReachStarView.frame = CGRect(x: Int(cellWidth) - indentX - starSize , y: indentY, width: starSize, height: starSize)
                 cell.addSubview(footerCell.goalReachStarView)
                     animatedStar(for: footerCell.goalReachStarView)
             }
@@ -137,7 +138,7 @@ class StepsTableViewController: UITableViewController {
             , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
         let viewTrailingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal
             , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
-        
+        viewStep.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([viewLeadingConstraint, viewTrailingConstraint])
     }
     
@@ -158,9 +159,11 @@ class StepsTableViewController: UITableViewController {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1,
                                                        delay: 0,
                                                        options: [.curveEaseOut],
-                                                       animations: { lineView.frame = CGRect(x: 15, y: 50, width: 355, height: 10)})
+                                                       animations: { lineView.frame = CGRect(x: self.indentX, y: self.indentY*2+self.objectHeight, width: Int(self.cellWidth) - self.indentY, height: self.indentY)})
         
     }
+    
+
     
 
 
