@@ -14,7 +14,7 @@ struct step : Codable {
     var aerobic: Int
     var run: Int
     var walk: Int
-    var date: Int
+    var date:  Double
     var sumOfSteps: Int  {
         return aerobic + run + walk
     }

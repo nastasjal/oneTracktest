@@ -99,7 +99,7 @@ class StepsTableViewController: UITableViewController {
         case 0:
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepTableCell", for: indexPath)
             if let stepCell = cell as? StepTableViewCell {
-                stepCell.dateLabel.text = String((steps![indexPath.section].date))
+                stepCell.dateLabel.text = convertDate(for: steps![indexPath.section].date)
                 stepCell.stepLineView.frame =  CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY)
                 stepCell.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.section].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.section].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.section].run))]
                 stepCell.countStepLabel.text = "\(String(steps![indexPath.section].sumOfSteps))/\(goal)steps"
@@ -155,6 +155,16 @@ class StepsTableViewController: UITableViewController {
         attributedText.append(NSAttributedString(string: "\(countSteps)\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.black]))
         attributedText.append(NSAttributedString(string: stepType, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: color]))
         return attributedText
+    }
+    
+    func convertDate(for unixtimeInterval: Double) -> String {
+        let date = Date(timeIntervalSinceReferenceDate: unixtimeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "dd.MM.yyyy" //Specify your format that you want
+        let strDate = dateFormatter.string(from: date)
+       return strDate
     }
     
 
