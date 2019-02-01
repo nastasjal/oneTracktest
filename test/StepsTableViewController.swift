@@ -105,9 +105,12 @@ class StepsTableViewController: UITableViewController {
                 stepCell.stepLineView.frame =  CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY)
                 stepCell.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.section].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.section].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.section].run))]
                 stepCell.countStepLabel.text = "\(String(steps![indexPath.section].sumOfSteps))/\(goal)steps"
-                stepCell.aerobicCountLabel.text = String(steps![indexPath.section].aerobic)
-                stepCell.walkCountLabel.text = String(steps![indexPath.section].walk)
-                stepCell.runCountLabel.text = String(steps![indexPath.section].run)
+                stepCell.aerobicCountLabel.attributedText = setFontToStepLabels(for: "aerobic", countSteps: steps![indexPath.section].aerobic, with: UIColor(hexString: "589CC3") )
+                    //String(steps![indexPath.section].aerobic)
+                stepCell.walkCountLabel.attributedText = setFontToStepLabels(for: "walk", countSteps: steps![indexPath.section].walk, with: UIColor(hexString: "6FC4F6") )
+                    //String(steps![indexPath.section].walk)
+                stepCell.runCountLabel.attributedText = setFontToStepLabels(for: "run", countSteps: steps![indexPath.section].run, with: UIColor(hexString: "376078") )
+                    //String(steps![indexPath.section].run)
                 cell.addSubview(stepCell.stepLineView)
                 animatedLine(for: (stepCell.stepLineView))
             }
@@ -161,6 +164,13 @@ class StepsTableViewController: UITableViewController {
                                                        options: [.curveEaseOut],
                                                        animations: { lineView.frame = CGRect(x: self.indentX, y: self.indentY*2+self.objectHeight, width: Int(self.cellWidth) - self.indentY, height: self.indentY)})
         
+    }
+    
+    func setFontToStepLabels(for stepType: String, countSteps : Int, with color: UIColor) ->  NSMutableAttributedString {
+        let attributedText = NSMutableAttributedString(string: "")
+        attributedText.append(NSAttributedString(string: "\(countSteps)\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.black]))
+        attributedText.append(NSAttributedString(string: stepType, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: color]))
+        return attributedText
     }
     
 
