@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eQa-3z-WRr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="48z-nN-f91">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Steps Table View Controller-->
+        <!--Steps-->
         <scene sceneID="7uZ-6g-tDF">
             <objects>
                 <tableViewController id="eQa-3z-WRr" customClass="StepsTableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,11 +19,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" red="0.43529411764705883" green="0.76862745098039209" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="stepTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="170" reuseIdentifier="stepTableCell" rowHeight="120" id="xQo-SA-lgp" customClass="StepTableViewCell" customModule="test" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xQo-SA-lgp" id="P8a-DN-jSD">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xQo-SA-lgp" id="P8a-DN-jSD">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -37,8 +38,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoA-aF-LWA">
-                                            <rect key="frame" x="163" y="79" width="42" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoA-aF-LWA">
+                                            <rect key="frame" x="162" y="79" width="42" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -49,10 +50,10 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNb-3D-bIQ">
-                                            <rect key="frame" x="291" y="79" width="50" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNb-3D-bIQ">
+                                            <rect key="frame" x="290" y="79" width="50" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="YLG-e9-8cw"/>
+                                                <constraint firstAttribute="width" constant="50" id="YLG-e9-8cw"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -69,25 +70,26 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.87086187217945199" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="VoA-aF-LWA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ERL-qy-7PA" secondAttribute="trailing" constant="8" symbolic="YES" id="0ny-uV-4RD"/>
                                         <constraint firstItem="oNb-3D-bIQ" firstAttribute="firstBaseline" secondItem="VoA-aF-LWA" secondAttribute="firstBaseline" id="B7t-VV-jjP"/>
                                         <constraint firstItem="DiQ-tb-HZn" firstAttribute="baseline" secondItem="Pk0-Ac-cqw" secondAttribute="baseline" id="CCp-Ws-zzq"/>
-                                        <constraint firstItem="oNb-3D-bIQ" firstAttribute="leading" secondItem="VoA-aF-LWA" secondAttribute="trailing" constant="86" id="COI-jU-hTY"/>
+                                        <constraint firstItem="oNb-3D-bIQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VoA-aF-LWA" secondAttribute="trailing" constant="86" id="COI-jU-hTY"/>
                                         <constraint firstItem="DiQ-tb-HZn" firstAttribute="top" secondItem="P8a-DN-jSD" secondAttribute="topMargin" id="Eec-N6-dH8"/>
                                         <constraint firstItem="Pk0-Ac-cqw" firstAttribute="leading" secondItem="DiQ-tb-HZn" secondAttribute="trailing" constant="13" id="HYA-Gz-kX6"/>
                                         <constraint firstItem="VoA-aF-LWA" firstAttribute="centerX" secondItem="P8a-DN-jSD" secondAttribute="centerX" id="P4o-u2-MBM"/>
                                         <constraint firstItem="oNb-3D-bIQ" firstAttribute="top" secondItem="P8a-DN-jSD" secondAttribute="topMargin" constant="68" id="QfZ-u9-yWG"/>
                                         <constraint firstItem="DiQ-tb-HZn" firstAttribute="leading" secondItem="P8a-DN-jSD" secondAttribute="leadingMargin" id="VR3-o0-evr"/>
                                         <constraint firstItem="ERL-qy-7PA" firstAttribute="leading" secondItem="DiQ-tb-HZn" secondAttribute="leading" id="W1V-dr-KEq"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="oNb-3D-bIQ" secondAttribute="trailing" constant="11" id="bMR-zL-jpU"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="oNb-3D-bIQ" secondAttribute="trailing" constant="10" id="bMR-zL-jpU"/>
                                         <constraint firstItem="DiQ-tb-HZn" firstAttribute="leading" secondItem="P8a-DN-jSD" secondAttribute="leadingMargin" id="c8Z-cE-27S"/>
-                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Pk0-Ac-cqw" secondAttribute="trailing" id="fhU-SC-YcP"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Pk0-Ac-cqw" secondAttribute="trailing" constant="10" id="fhU-SC-YcP"/>
                                         <constraint firstItem="DiQ-tb-HZn" firstAttribute="firstBaseline" secondItem="Pk0-Ac-cqw" secondAttribute="firstBaseline" id="kpP-QE-S61"/>
                                         <constraint firstItem="oNb-3D-bIQ" firstAttribute="firstBaseline" secondItem="ERL-qy-7PA" secondAttribute="firstBaseline" id="y1L-b2-P1B"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="aerobicCountLabel" destination="ERL-qy-7PA" id="VaD-lt-Eoq"/>
                                     <outlet property="countStepLabel" destination="Pk0-Ac-cqw" id="g6k-b4-NHg"/>
@@ -114,7 +116,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.8708618722" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="9JZ-m6-lPT" firstAttribute="leading" secondItem="IiD-eq-b09" secondAttribute="leading" id="HIu-hH-hxx"/>
                                         <constraint firstItem="9JZ-m6-lPT" firstAttribute="top" secondItem="IiD-eq-b09" secondAttribute="top" id="Nd0-C5-via"/>
@@ -131,10 +133,17 @@
                             <outlet property="delegate" destination="eQa-3z-WRr" id="m5V-7q-xtj"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Steps" id="OX9-mj-lKg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9wp-BK-BCA">
+                            <connections>
+                                <action selector="changeGoal:" destination="eQa-3z-WRr" id="rGP-EE-Og4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvf-BC-n6m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-677.60000000000002" y="-132.68365817091455"/>
+            <point key="canvasLocation" x="261.60000000000002" y="-132.68365817091455"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -158,7 +167,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1076" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Fi2-mj-nOW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="48z-nN-f91" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ta2-s1-Dt9">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eQa-3z-WRr" kind="relationship" relationship="rootViewController" id="d6V-3M-g17"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cBd-uc-teF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-677.60000000000002" y="-132.68365817091455"/>
         </scene>
     </scenes>
 </document>

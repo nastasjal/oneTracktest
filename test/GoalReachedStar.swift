@@ -16,26 +16,23 @@ class GoalReachedStar: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        let rectStar = CGRect(x: 0, y: 0, width: minLength, height: minLength)
+        let rectStar = CGRect(x: bounds.minX, y: bounds.minY, width: minLength, height: minLength)
         let pathStar = starPathInRect(rect: rectStar)
+        UIColor.black.setStroke()
+        pathStar.stroke()
         UIColor.yellow.setFill()
         pathStar.fill()
-        
     }
     
     func starPathInRect(rect: CGRect) -> UIBezierPath {
+        
         let path = UIBezierPath()
-        
         let starExtrusion:CGFloat = minLength/3
-        
         let center = CGPoint(x: rect.width / 2.0, y: rect.height / 2.0)
-        
         let pointsOnStar = 5
-        
         var angle:CGFloat = -CGFloat(.pi / 2.0)
         let angleIncrement = CGFloat(.pi * 2.0 / Double(pointsOnStar))
         let radius = rect.width / 2.0
-        
         var firstPoint = true
         
         for _ in 1...pointsOnStar {
@@ -58,6 +55,7 @@ class GoalReachedStar: UIView {
         
         return path
     }
+    
     
     func pointFrom(angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {
         return CGPoint(x: radius * cos(angle) + offset.x, y: radius * sin(angle) + offset.y)

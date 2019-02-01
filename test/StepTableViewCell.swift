@@ -10,35 +10,31 @@ import UIKit
 
 class StepTableViewCell: UITableViewCell {
 
+    var indentX:Int = 10
+    var indentY: Int = 10
+    var objectHeight: Int = 20
+    
+    lazy var stepLineView = StepView(frame: CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY))
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         layoutSubviews()
-      //   setupView()
-        // Initialization code
+      //  addConstraint(for: stepLineView)
     }
     
     @IBOutlet weak var runCountLabel: UILabel!
     @IBOutlet weak var aerobicCountLabel: UILabel!
     @IBOutlet weak var walkCountLabel: UILabel!
-//    func setupView(){
-//        //Align Title
-//        addSubview(stepLineView)
-//        
-//    }
-//    
-//    @IBOutlet weak var stepLineView: StepView! {
-//        didSet {
-//            layoutSubviews()
-//        }
-//    }
-//
     @IBOutlet weak var countStepLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+    func addConstraint(for viewStep: UIView) {
+        let viewLeadingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal
+            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let viewTrailingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal
+            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([viewLeadingConstraint, viewTrailingConstraint])
     }
     
-    var stepLineView = StepView(frame: CGRect(x: 15, y: 50, width: 10, height: 10))
 }

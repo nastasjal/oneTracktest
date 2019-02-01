@@ -32,7 +32,7 @@ class StepView: UIView {
         case aerobic
     }
     
-    var stepTypeColor: [stepType: UIColor] = [stepType.aerobic: UIColor.red, stepType.run: UIColor.green,stepType.walk: UIColor.blue]
+    var stepTypeColor: [stepType: UIColor] = [stepType.aerobic: UIColor(hexString: "589CC3") /*589CC3*/, stepType.run: UIColor(hexString: "376078") /*376078*/,stepType.walk: UIColor(hexString: "6FC4F6") /*6FC4F6*/]
    
     var sumSteps: CGFloat {
         return arraySteps.map({$0.value}).reduce(0, +)
@@ -68,6 +68,8 @@ class StepView: UIView {
             let width = maxLength * getPercent(for: step)/100
             let frame = CGRect(x: previusX, y: bounds.minY, width: width, height: maxHeight)
             let stepPath = UIBezierPath(roundedRect: frame, cornerRadius: 5)
+            UIColor.black.setStroke()
+            stepPath.stroke()
             stepTypeColor[step.type]?.setFill()
             stepPath.fill()
             stepPath.close()
@@ -89,4 +91,20 @@ class StepView: UIView {
     }
  
     
+}
+
+extension UIColor {
+    convenience init(hexString: String, alpha:CGFloat? = 1.0) {
+        var hexInt: UInt32 = 0
+        let scanner = Scanner(string: hexString)
+        scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
+        scanner.scanHexInt32(&hexInt)
+        
+        let red = CGFloat((hexInt & 0xff0000) >> 16) / 255.0
+        let green = CGFloat((hexInt & 0xff00) >> 8) / 255.0
+        let blue = CGFloat((hexInt & 0xff) >> 0) / 255.0
+        let alpha = alpha!
+        
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
 }

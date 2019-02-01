@@ -10,11 +10,11 @@ import UIKit
 
 class FooterTableViewCell: UITableViewCell {
 
-    var goalReachStarView = GoalReachedStar(frame: CGRect(x: 350, y: 5, width: 20, height: 20)) {
+    var goalReachStarView = GoalReachedStar()/*(frame: CGRect(x: 350, y: 5, width: 20, height: 20)) {
         didSet {
              layoutSubviews()
         }
-    }
+    }*/
     
     @IBOutlet weak var goalReachLabel: UILabel!
     

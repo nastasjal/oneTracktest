@@ -11,20 +11,50 @@ import UIKit
 class StepsTableViewController: UITableViewController {
 
     var steps:[step]? 
-    var goal = 4000
-    var cellSpacingHeight = 40
+    var goal  =  GoalStore.searches {
+        didSet {
+            print ("goal was changed")
+            self.tableView.reloadData()
+        }
+    }
+
     var sumOfSteps = 0
+    
+    var indentX:Int = 10
+    var indentY: Int = 10
+    var objectHeight: Int = 20
+    var cellHeight: CGFloat = 100
+    var cellWidth: CGFloat = 375
+    var footerHeight: CGFloat = 40
+    var headerHeight: CGFloat = 20
+    
+    @IBAction func changeGoal(_ sender: UIBarButtonItem) {
+        var alert = UIAlertController (title: "change goal", message: "insert new goal", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {textfield in
+            textfield.placeholder = "goal"
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction ) -> Void in
+        if let newGoal = alert.textFields?.first , let num = Int(newGoal.text!) {
+        GoalStore.add(newGoal.text!)
+            self.goal = Int(newGoal.text!)!
+            }}))
+        present(alert, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    //    let nib = UINib(nibName: "footerView", bundle: nil)
-    //    tableView.register(nib, forHeaderFooterViewReuseIdentifier: "FooterTableViewSection")
     }
     
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+       loadData()
+    }
+    
+    
+    func loadData(){
         let urlString = "https://intern-f6251.firebaseio.com/intern/metric.json"
         
         let url = URL(string: urlString)
@@ -52,7 +82,6 @@ class StepsTableViewController: UITableViewController {
             }.resume()
     }
     
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,6 +107,7 @@ class StepsTableViewController: UITableViewController {
                 stepCell.walkCountLabel.text = String(steps![indexPath.section].walk)
                 stepCell.runCountLabel.text = String(steps![indexPath.section].run)
                 cell.addSubview(stepCell.stepLineView)
+                addConstraint(for: cell.contentView)
                 animatedLine(for: (stepCell.stepLineView))
             }
          return cell
@@ -85,7 +115,7 @@ class StepsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "footerTableCell", for: indexPath)
                 if let footerCell = cell  as? FooterTableViewCell {
                 footerCell.goalReachLabel.text = "Goal Reached"
-                footerCell.goalReachStarView.frame = CGRect(x: 350, y: 5, width: 20, height: 20)
+                footerCell.goalReachStarView.frame = CGRect(x: Int(cellWidth) - indentX  , y: indentY, width: Int(footerHeight) - indentX*2, height: Int(footerHeight) - indentX*2)
                 cell.addSubview(footerCell.goalReachStarView)
                     animatedStar(for: footerCell.goalReachStarView)
             }
@@ -95,24 +125,42 @@ class StepsTableViewController: UITableViewController {
     }
  
    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return headerHeight
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return steps![indexPath.section].sumOfSteps > goal ? ( indexPath.row == 0 ? 120 : 40 ) : 120
+        return steps![indexPath.section].sumOfSteps > goal ? ( indexPath.row == 0 ? cellHeight : footerHeight ) : cellHeight
     }
   
-    func animatedLine(for lineView: UIView){
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1, delay: 0, options: [.curveEaseOut], animations: { lineView.frame = CGRect(x: 15, y: 50, width: 355, height: 10)} )
+    
+    func addConstraint(for viewStep: UIView) {
+        let viewLeadingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal
+            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let viewTrailingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal
+            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
         
+        NSLayoutConstraint.activate([viewLeadingConstraint, viewTrailingConstraint])
     }
+    
     
     func animatedStar(for starView: UIView){
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 1, options: [ .curveEaseIn], animations: {starView.frame =  starView.frame.insetBy(dx: -8.0, dy: -8.0)}, completion: { position in
-            UIView.transition(with: starView, duration: 0.3, options: [.curveEaseIn, .repeat], animations: {UIView.setAnimationRepeatCount(3); starView.frame =  starView.frame.insetBy(dx: 8.0, dy: 8.0)}
-            )
-        } )
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3,
+                                                       delay: 1,
+                                                       options: [ .curveEaseIn],
+                                                       animations: {starView.frame =  starView.frame.insetBy(dx: -8.0, dy: -8.0)}, completion: { position in
+            UIView.transition(with: starView,
+                              duration: 0.3,
+                              options: [.curveEaseIn, .repeat],
+                              animations: {UIView.setAnimationRepeatCount(3); starView.frame =  starView.frame.insetBy(dx: 8.0, dy: 8.0)})
+        })
     }
     
+    func animatedLine(for lineView: UIView){
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1,
+                                                       delay: 0,
+                                                       options: [.curveEaseOut],
+                                                       animations: { lineView.frame = CGRect(x: 15, y: 50, width: 355, height: 10)})
+        
+    }
     
 
 
