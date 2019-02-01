@@ -27,14 +27,5 @@ class StepTableViewCell: UITableViewCell {
     @IBOutlet weak var walkCountLabel: UILabel!
     @IBOutlet weak var countStepLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-
-    func addConstraint(for viewStep: UIView) {
-        let viewLeadingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal
-            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
-        let viewTrailingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal
-            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
-        
-        NSLayoutConstraint.activate([viewLeadingConstraint, viewTrailingConstraint])
-    }
     
 }

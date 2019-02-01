@@ -24,10 +24,11 @@ class StepsTableViewController: UITableViewController {
     var indentY: Int = 10
     var objectHeight: Int = 20
     var cellHeight: CGFloat = 100
-    var cellWidth: CGFloat = 370
+    var cellWidth = 370
     var footerHeight: CGFloat = 40
     var headerHeight: CGFloat = 20
     var starSize: Int = 20
+  
     
     @IBAction func changeGoal(_ sender: UIBarButtonItem) {
         let alert = UIAlertController (title: "change goal", message: "insert new goal", preferredStyle: .alert)
@@ -65,12 +66,9 @@ class StepsTableViewController: UITableViewController {
             }
             
             guard let data = data else { return }
-            //Implement JSON decoding and parsing
             do {
-                //Decode retrived data with JSONDecoder and assing type of Article object
                 let articlesData = try JSONDecoder().decode([step].self, from: data)
                 
-                //Get back to the main queue
                 DispatchQueue.main.async {
                     self.steps = articlesData
                     self.tableView.reloadData()
@@ -101,16 +99,13 @@ class StepsTableViewController: UITableViewController {
         case 0:
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepTableCell", for: indexPath)
             if let stepCell = cell as? StepTableViewCell {
-                stepCell.dateLabel.text = String(Double(steps![indexPath.section].date))
+                stepCell.dateLabel.text = String((steps![indexPath.section].date))
                 stepCell.stepLineView.frame =  CGRect(x: indentX, y: indentY*2+objectHeight, width: indentX, height: indentY)
                 stepCell.stepLineView.arraySteps = [StepView.step(type: StepView.stepType.aerobic, value: CGFloat(steps![indexPath.section].aerobic)), StepView.step(type: StepView.stepType.walk, value: CGFloat(steps![indexPath.section].walk)), StepView.step(type: StepView.stepType.run, value: CGFloat(steps![indexPath.section].run))]
                 stepCell.countStepLabel.text = "\(String(steps![indexPath.section].sumOfSteps))/\(goal)steps"
                 stepCell.aerobicCountLabel.attributedText = setFontToStepLabels(for: "aerobic", countSteps: steps![indexPath.section].aerobic, with: UIColor(hexString: "589CC3") )
-                    //String(steps![indexPath.section].aerobic)
                 stepCell.walkCountLabel.attributedText = setFontToStepLabels(for: "walk", countSteps: steps![indexPath.section].walk, with: UIColor(hexString: "6FC4F6") )
-                    //String(steps![indexPath.section].walk)
                 stepCell.runCountLabel.attributedText = setFontToStepLabels(for: "run", countSteps: steps![indexPath.section].run, with: UIColor(hexString: "376078") )
-                    //String(steps![indexPath.section].run)
                 cell.addSubview(stepCell.stepLineView)
                 animatedLine(for: (stepCell.stepLineView))
             }
@@ -134,17 +129,6 @@ class StepsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return steps![indexPath.section].sumOfSteps > goal ? ( indexPath.row == 0 ? cellHeight : footerHeight ) : cellHeight
     }
-  
-    
-    func addConstraint(for viewStep: UIView) {
-        let viewLeadingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal
-            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
-        let viewTrailingConstraint = NSLayoutConstraint(item: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal
-            , toItem: viewStep, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
-        viewStep.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([viewLeadingConstraint, viewTrailingConstraint])
-    }
-    
     
     func animatedStar(for starView: UIView){
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3,
@@ -162,7 +146,7 @@ class StepsTableViewController: UITableViewController {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 1,
                                                        delay: 0,
                                                        options: [.curveEaseOut],
-                                                       animations: { lineView.frame = CGRect(x: self.indentX, y: self.indentY*2+self.objectHeight, width: Int(self.cellWidth) - self.indentY, height: self.indentY)})
+                                                       animations: { lineView.frame = CGRect(x: self.indentX, y: self.indentY*2+self.objectHeight, width: Int(UIScreen.main.bounds.width) - self.indentY * 2 /*Int(self.cellWidth) - self.indentY*/, height: self.indentY)})
         
     }
     
@@ -173,8 +157,5 @@ class StepsTableViewController: UITableViewController {
         return attributedText
     }
     
-
-    
-
 
 }

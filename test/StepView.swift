@@ -10,6 +10,10 @@ import UIKit
 
 class StepView: UIView {
     
+    var indentX:Int = 10
+    var indentY: Int = 10
+    var objectHeight: Int = 20
+    
     struct step {
         var type: stepType
         var value: CGFloat
@@ -81,15 +85,28 @@ class StepView: UIView {
         }
      }
     
+    @objc func updateLayout(){
+     
+            self.frame = CGRect(x: self.indentX, y: self.indentY*2+self.objectHeight, width: Int(UIScreen.main.bounds.width) - self.indentY * 2 /*Int(self.cellWidth) - self.indentY*/, height: self.indentY)
+     
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLayout), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
  
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIDevice.orientationDidChangeNotification,
+                                                  object: nil)
+    }
     
 }
 
